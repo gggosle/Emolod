@@ -148,8 +148,9 @@ public:
 
 class Player : public Characteristics {
 private:
-	int lvl = 0;
+	
 	int power = 0;
+	int c = 22;
 	float agility = 0;
 	int endurance = 0;
 	int experience = 0;
@@ -159,6 +160,7 @@ private:
 	int cash = 0;
 	Shield* shield = NULL;
 	Weapon* weapon = NULL;
+
 public:
 	Player(int health, int energy, int level, int power, int agility, int endurance, string name, int cash) :Characteristics(health, energy, name, level)
 	{
@@ -167,10 +169,16 @@ public:
 		this->agility = agility;
 		this->endurance = endurance;
 		this->experience = 0;
+		this->level = level;
 		this->experienceMax = 1000 * this->level;
+		
 	}
-	int getLvl() {
-		return lvl;
+	
+	int levelUp() {
+		this->level += 1;
+	}
+	int getLevel() {
+		return level;
 	}
 	void setCash(int cash) {
 		this->cash = cash;
@@ -178,7 +186,7 @@ public:
 	int getCash() {
 		return cash;
 	}
-	
+
 	int healthRegeneration() {
 		return this->health = this->healthMax;
 	}
@@ -213,17 +221,27 @@ public:
 	}int getEndurance() {
 		return endurance;
 	}
+	int cashUp(int cash) {
+		this->cash += cash;
+	}
 	void setExperience(int experience) {
-		if (experience + this->experience > this->experienceMax) {
-			this->experience = (experience + this->experience) - this->experienceMax;
-			this->lvl += 1;
+		if (experienceUp(experience) > this->experienceMax) {
+			this->experience = experienceUp(experience) - this->experienceMax;
+			levelUp();
 			this->agility += rand() % 5;
-			this->power = rand() % 5;
 			this->endurance = rand() % 5;
+			this->power = rand() % 5;
+			this->health = this->healthMax;
+			this->energy = this->energyMax;
+			this->c += 4;
 		}
-		else {
-			this->experience += experience;
+		else {	
+			experienceUp(experience);
 		}
+	}
+	int experienceUp(int experience) {
+		this->experience += experience;
+	
 	}
 	int getExperience() {
 		return experience;
@@ -232,7 +250,7 @@ public:
 
 
 	int generateDamage(int damage) {
-		int playerDamage = (((damage + power) - 3) * this->fH->getCharacteristic(health, level, 10)) / 22;
+		int playerDamage = (((damage + power) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
 		int critical = this->fH->getCharacteristic(health, level, 10);
 		int percentage = 4;
 		for (int i = 0; i < level; i++) {
@@ -242,7 +260,7 @@ public:
 
 
 
-		if ((1 + rand() % 10)/criticalChance == (1 + rand() % 10) / criticalChance) {
+		if (1 + rand() % (10 / criticalChance) == 1 + rand() %( 10 / criticalChance)) {
 			return playerDamage = critical;
 		}
 
@@ -329,7 +347,7 @@ public:
 		for (int i = 0; i < defense; i++) {
 			price += 20;
 		}
-		
+
 		return new Shield(this->nH->getShieldName(), defense, price);
 	}
 
@@ -339,7 +357,7 @@ public:
 		for (int i = 0; i < damage; i++) {
 			price += 20;
 		}
-		
+
 		return new Weapon(this->nH->getWeaponName(), damage, price);
 	}
 
@@ -369,7 +387,7 @@ public:
 
 	Monster* monsterGeneration(int level) {
 
-		level = this->fH->randomRes(level - 2, level+2);
+		level = this->fH->randomRes(level - 2, level + 2);
 		int health = 25;
 		int energy = 25;
 		int cash = 10;
@@ -409,49 +427,56 @@ public:
 		this->player = player;
 	}
 	void shop() {
-		if(this->player->getCash()>= 60){
-		while(shiel.size()<3) {
-			Shield* shield = this->engine->shieldGeneration();
-			if (shield->getPrice() == this->player->getCash()) {
-				shiel.push_back(shield);
+		if (this->player->getCash() >= 60) {
+			while (shiel.size() < 3) {
+				Shield* shield = this->engine->shieldGeneration();
+				if (shield->getPrice() == this->player->getCash()) {
+					shiel.push_back(shield);
+				}
 			}
-	   }
-		while (weap.size() < 3) {
-			Weapon* weapon = this->engine->weaponGeneration();
-			if (weapon->getPrice() == this->player->getCash()) {
-				weap.push_back(weapon);
+			while (weap.size() < 3) {
+				Weapon* weapon = this->engine->weaponGeneration();
+				if (weapon->getPrice() == this->player->getCash()) {
+					weap.push_back(weapon);
+				}
 			}
-		}
-		for (int i = 0; i < 3; i++) {
-			cout << i + 1 << ". ";
-			shiel[i]->showShieldData();	
-		}
-		for (int i = 0; i < 3; i++) {
-			cout << i + 4 << ". ";
-			weap[i]->showWeaponData();
-		}
-		cout << "Number of item you chose: ";
-		cin >> n;
-		(n > 3) ? this->player->setWeapon(weap[n - 4]) : this->player->setShield(shiel[n - 1]);
+			for (int i = 0; i < 3; i++) {
+				cout << i + 1 << ". ";
+				shiel[i]->showShieldData();
+			}
+			for (int i = 0; i < 3; i++) {
+				cout << i + 4 << ". ";
+				weap[i]->showWeaponData();
+			}
+			cout << "Number of item you chose: ";
+			cin >> n;
+			(n > 3) ? this->player->setWeapon(weap[n - 4]) : this->player->setShield(shiel[n - 1]);
 
 		}
 		else {
 			cout << "Right now we have nothing to offer you. See you next time" << endl;
 		}
-		
-			
-		
+
+
+
 	}
-	void bumpIntoMonster(){
-		Monster* monster = this->engine->monsterGeneration(this->player->getLevel());
+	void bumpIntoMonster() {
+		this->monster = this->engine->monsterGeneration(this->player->getLevel());
 	}
 	void improvement() {
-		
-		if (this->player->getLvl()> this->player->getLevel()){
-			this->player->setLevel(this->player->getLvl());
-
+		if (this->player->levelUp()) {
 			cout << "Congrats! You've reached new level!" << endl;
+			cout << "Your power now: " << this->player->getPower()<< endl;
+			cout << "Your agility now: " << this->player->getAgility() << endl;
+			cout << "Your endurance now: " << this->player->getEndurance() << endl;
 		}
+		if (this->player->experienceUp(this->monster->getPlayerExperience())) {
+			cout << "Your experience: +" << this->monster->getPlayerExperience() << endl;
+		}
+		if (this->player->cashUp(this->monster->getCash())) {
+			cout << "Your cash: +" << this->monster->getCash();
+		}
+		
 	}
 };
 
@@ -462,6 +487,6 @@ int main() {
 	Player* player = engine->playerGeneration();
 
 	player->setWeapon(engine->weaponGeneration());
-	
+
 	return 1;
 }
