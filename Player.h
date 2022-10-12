@@ -1,4 +1,4 @@
-#pragma
+
 #include "Characteristics.h"
 #include <iostream>
 #include "Shield.h"

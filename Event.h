@@ -1,4 +1,4 @@
-#pragma once
+
 #include "Player.h"
 #include "Monster.h"
 #include "Engine.h"
@@ -68,6 +68,7 @@ public:
 		if (this->player->cashUp(this->monster->getCash())) {
 			cout << "Your cash: +" << this->monster->getCash();
 		}
+
 
 	}
 };

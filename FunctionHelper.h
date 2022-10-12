@@ -1,4 +1,4 @@
-#pragma once
+
 class FunctionHelper {
 public:
 	int getCharacteristic(int ch, int level, int shift) {

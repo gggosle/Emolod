@@ -1,4 +1,4 @@
-#pragma once
+
 #include "NameTrait.h"
 #include "FunctionHelper.h"
 #include <iostream>

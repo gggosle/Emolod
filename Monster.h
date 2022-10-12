@@ -1,4 +1,4 @@
-#pragma once
+
 #include "Characteristics.h"
 using namespace std;
 class Monster : public Characteristics {

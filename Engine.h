@@ -146,5 +146,6 @@ public:
 				}
 			}
 		}
+		this->player->healthRegeneration();
 	}
 };
