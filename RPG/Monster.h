@@ -1,4 +1,4 @@
-
+#pragma once
 #include "Characteristics.h"
 using namespace std;
 class Monster : public Characteristics {
@@ -26,7 +26,7 @@ public:
 	void setShield(int shield) {
 		this->shield = shield;
 	}
-	
+
 	void setPlayerExperience(int playerExperience) {
 		this->playerExperience = playerExperience;
 	}
@@ -36,7 +36,7 @@ public:
 	int generateDamage() {
 		return this->fH->getCharacteristic(health, level, 10) / (rand() % 10);
 	}
-	
+
 	int generateShield() {
 		int c = 22;
 		c += level * 4;
@@ -49,4 +49,3 @@ public:
 		}
 	}
 };
-

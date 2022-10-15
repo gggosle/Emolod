@@ -1,3 +1,4 @@
+#pragma once
 #include "Monster.h"
 #include "Player.h"
 #include "NameHelper.h"
@@ -32,11 +33,10 @@ private:
 		this->player->setExperience(this->monster->getPlayerExperience());
 	}
 public:
-	Engine(FunctionHelper* fH, NameHelper* nH, Event* event)
+	Engine(FunctionHelper* fH, NameHelper* nH)
 	{
 		this->fH = fH;
 		this->nH = nH;
-		this->event = event;
 
 	}
 
@@ -100,8 +100,8 @@ public:
 
 		return monster;
 	}
-	int fight(Player* player) {
-		
+	int fight(Player* player, Event* event) {
+		this->event = event;
 		char choice;
 		this->player = player;
 		this->event->bumpIntoMonster();
@@ -124,7 +124,7 @@ public:
 					win();
 					break;
 				}
-				monsterTurn();	
+				monsterTurn();
 				if (f == 0) {
 					cout << "You lose!" << endl;
 					break;
@@ -149,3 +149,4 @@ public:
 		this->player->healthRegeneration();
 	}
 };
+

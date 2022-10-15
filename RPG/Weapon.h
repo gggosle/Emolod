@@ -1,3 +1,4 @@
+#pragma once
 #include "NameTrait.h"
 #include <iostream>
 
@@ -24,5 +25,4 @@ public:
 		cout << this->name << " defense value:  " << this->damage << " ------  price: " << this->price << endl;
 	}
 };
-
 

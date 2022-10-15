@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dda56c9e-20ef-44de-9661-0e626ba3f934}</ProjectGuid>
-    <RootNamespace>ConsoleApplication3</RootNamespace>
+    <ProjectGuid>{00c7487f-3332-43ff-b422-dc8d63fe936b}</ProjectGuid>
+    <RootNamespace>RPG</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Characteristics.cpp" />
-    <ClCompile Include="ConsoleApplication3.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FunctionHelper.cpp" />
@@ -148,6 +147,7 @@
     <ClCompile Include="NameHelper.cpp" />
     <ClCompile Include="NameTrait.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RPG.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>

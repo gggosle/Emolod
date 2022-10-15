@@ -1,4 +1,4 @@
-
+#pragma once
 class FunctionHelper {
 public:
 	int getCharacteristic(int ch, int level, int shift) {
@@ -22,4 +22,5 @@ public:
 		return min + rand() % (max - min + 1);
 	}
 };
+
 

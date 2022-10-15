@@ -1,7 +1,8 @@
-
+#pragma once
 #include "Player.h"
 #include "Monster.h"
 #include "Engine.h"
+#include "Event.h"
 #include <vector>
 class Event {
 private:

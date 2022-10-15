@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApplication3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shield.cpp">
+    <ClCompile Include="RPG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NameTrait.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shield.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Characteristics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionHelper.cpp">
+    <ClCompile Include="Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Weapon.cpp">
+    <ClCompile Include="FunctionHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -50,19 +50,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shield.h">
+    <ClInclude Include="NameTrait.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NameTrait.h">
+    <ClInclude Include="Shield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Characteristics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionHelper.h">
+    <ClInclude Include="Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Weapon.h">
+    <ClInclude Include="FunctionHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">

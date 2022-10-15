@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 using namespace std;
 
@@ -17,4 +18,3 @@ public:
 		return this->weaponNames[rand() % 5];
 	}
 };
-
