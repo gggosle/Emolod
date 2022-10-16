@@ -2,6 +2,11 @@
 #include "Monster.h"
 #include "Player.h"
 #include "NameHelper.h"
+#include "Event.h"
+#include <ctime>
+#include "FunctionHelper.h"
+#include <iostream>
+using namespace std;
 
 class Engine {
 private:
@@ -9,7 +14,7 @@ private:
 	Player* player = NULL;
 	FunctionHelper* fH = NULL;
 	NameHelper* nH = NULL;
-	Event* event = NULL;
+
 	void monsterTurn() {
 		int gap = 0;
 		int f = (this->player->getHealth() + this->player->generateShield(this->player->getShield()->getDefense())) - this->monster->generateDamage();
@@ -100,11 +105,9 @@ public:
 
 		return monster;
 	}
-	int fight(Player* player, Event* event) {
-		this->event = event;
+	int fight(Player* player, Monster* monster) {
 		char choice;
 		this->player = player;
-		this->event->bumpIntoMonster();
 		cout << "Your opponnent's stats: " << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
 		cout << "Experience: " << this->monster->getPlayerExperience() << endl << "Cash: " << this->monster->getCash() << endl;
 		cout << "You wanna fight?(y/n)";

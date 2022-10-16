@@ -2,19 +2,23 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Engine.h"
-#include "Event.h"
 #include <vector>
+#include "FunctionHelper.h"
+#include "NameHelper.h"
+#include <iostream>
+using namespace std;
 class Event {
 private:
 	int n = 0;
 	Monster* monster = NULL;
 	Player* player = NULL;
-	Engine* engine = new Engine(new FunctionHelper(), new NameHelper());
+	Engine* engine = NULL;
 	vector <Shield*> shiel;
 	vector <Weapon*> weap;
 public:
-	Event(Player* player) {
+	Event(Player* player, Engine* engine) {
 		this->player = player;
+		this->engine = engine;
 	}
 
 	void shop() {
@@ -53,7 +57,7 @@ public:
 
 
 	}
-	void bumpIntoMonster() {
+	Monster* bumpIntoMonster() {
 		Monster* monster = this->engine->monsterGeneration(this->player->getLevel());
 	}
 	void improvement() {

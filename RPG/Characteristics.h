@@ -2,7 +2,7 @@
 #include "NameTrait.h"
 #include "FunctionHelper.h"
 #include <iostream>
-
+using namespace std;
 class Characteristics : public NameTrait
 {
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "NameTrait.h"
 #include <iostream>
+using namespace std;
 
 class Weapon : public NameTrait {
 	int damage = 0;

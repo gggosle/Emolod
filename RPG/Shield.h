@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "NameTrait.h"
+using namespace std;
 
 
 class Shield : public NameTrait {

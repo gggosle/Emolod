@@ -1,0 +1,45 @@
+﻿  Engine.cpp
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(28,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(81,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(83,10): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(116,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(15,8): error C2143: syntax error: missing ';' before '*'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(15,8): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(15,23): error C2238: unexpected token(s) preceding ';'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(21,24): error C2061: syntax error: identifier 'Engine'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(23,9): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(23,18): error C2065: 'engine': undeclared identifier
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(29,27): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(32,26): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(63,28): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+  Event.cpp
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(28,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(81,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(83,10): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(116,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  RPG.cpp
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(28,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(81,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(83,10): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Player.h(116,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(15,8): error C2143: syntax error: missing ';' before '*'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(15,8): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(15,23): error C2238: unexpected token(s) preceding ';'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(21,24): error C2061: syntax error: identifier 'Engine'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(23,9): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(23,18): error C2065: 'engine': undeclared identifier
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(29,27): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(32,26): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(63,28): error C2039: 'engine': is not a member of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\Event.h(10): message : see declaration of 'Event'
+C:\Users\gakho\source\repos\RPG\RPG\RPG.cpp(41,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\gakho\source\repos\RPG\RPG\RPG.cpp(53,42): error C2661: 'Event::Event': no overloaded function takes 2 arguments
+  Weapon.cpp
+  Generating Code...

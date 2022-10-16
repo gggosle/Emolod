@@ -1,4 +1,7 @@
 #pragma once
+#include <ctime>
+#include <iostream>
+using namespace std;
 class FunctionHelper {
 public:
 	int getCharacteristic(int ch, int level, int shift) {

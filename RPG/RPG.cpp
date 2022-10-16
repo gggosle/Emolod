@@ -38,9 +38,9 @@ public:
 	}
 };
 int main() {
+	srand(time(NULL));
 	Player* player = NULL;
 	Engine* engine = new Engine(new FunctionHelper(), new NameHelper());
-	
 	SaveLoad* saveload = new SaveLoad();
 	cout << "Continue?(Press 'c')" << endl;
 	int key = _getch();
@@ -50,7 +50,7 @@ int main() {
 	else {
 		player = engine->playerGeneration();
 	}
-	Event* event = new Event(player);
+	Event* event = new Event(player, engine);
 	int pos = 0;
 	while (player->getLevel() < 10) {
 		pos = 1 + rand() % 100;
@@ -58,7 +58,7 @@ int main() {
 			event->shop();
 		}
 		else if (pos > 5 && pos <= 45) {
-			engine->fight(player, event);
+			engine->fight(player, event->bumpIntoMonster());
 		}
 		else if (pos > 45 && pos <= 70) {
 			player->setEnergy(1 + rand() % 5);
