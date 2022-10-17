@@ -41,8 +41,16 @@ public:
 		int c = 22;
 		c += level * 4;
 		int shieldChance = (this->fH->randomRes(0, c) * 100) / c;
-		if (1 + rand() % (10 / shieldChance) == 1 + rand() % (10 / shieldChance)) {
-			return this->fH->getCharacteristic(health, level, 10) / (rand() % 10);
+		int divizion = 0;
+		if ((10 / shieldChance) == 0) {
+			divizion = 1;
+		}
+		else {
+			divizion = (10 / shieldChance);
+		}
+
+		if (1 + rand() % divizion == 1 + rand() % divizion) {
+			return this->fH->getCharacteristic(health, level, 10) / (1 + rand() % 10);
 		}
 		else {
 			return shield;

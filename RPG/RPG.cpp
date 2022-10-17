@@ -14,6 +14,7 @@
 #include "Event.h"
 #include <fstream>
 #include <conio.h>
+
 using namespace std;
 class SaveLoad {
 public:
@@ -23,6 +24,7 @@ public:
 		load.open("emolod.txt");
 		load.read((char*)&player, sizeof(Player));
 		load.close();
+
 		return player;
 
 	}
@@ -49,7 +51,10 @@ int main() {
 	}
 	else {
 		player = engine->playerGeneration();
+		player->setWeapon(engine->weaponGeneration());
+		player->setShield(engine->shieldGeneration());
 	}
+	
 	Event* event = new Event(player, engine);
 	int pos = 0;
 	while (player->getLevel() < 10) {
@@ -58,7 +63,7 @@ int main() {
 			event->shop();
 		}
 		else if (pos > 5 && pos <= 45) {
-			engine->fight(player, event->bumpIntoMonster());
+			event->bumpIntoMonster();
 		}
 		else if (pos > 45 && pos <= 70) {
 			player->setEnergy(1 + rand() % 5);

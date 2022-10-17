@@ -7,10 +7,12 @@
 #include "NameHelper.h"
 #include <iostream>
 using namespace std;
+
 class Event {
 private:
 	int n = 0;
-	Monster* monster = NULL;
+	
+	//Monster* monster = NULL;
 	Player* player = NULL;
 	Engine* engine = NULL;
 	vector <Shield*> shiel;
@@ -57,21 +59,23 @@ public:
 
 
 	}
-	Monster* bumpIntoMonster() {
+	bool bumpIntoMonster() {
 		Monster* monster = this->engine->monsterGeneration(this->player->getLevel());
+		this->engine->fight(this->player, monster);
+		return 0;
 	}
-	void improvement() {
+	void improvement(Monster* monster) {
 		if (this->player->levelUp()) {
 			cout << "Congrats! You've reached new level!" << endl;
 			cout << "Your power now: " << this->player->getPower() << endl;
 			cout << "Your agility now: " << this->player->getAgility() << endl;
 			cout << "Your endurance now: " << this->player->getEndurance() << endl;
 		}
-		if (this->player->experienceUp(this->monster->getPlayerExperience())) {
-			cout << "Your experience: +" << this->monster->getPlayerExperience() << endl;
+		if (this->player->experienceUp(monster->getPlayerExperience())) {
+			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
 		}
-		if (this->player->cashUp(this->monster->getCash())) {
-			cout << "Your cash: +" << this->monster->getCash();
+		if (this->player->cashUp(monster->getCash())) {
+			cout << "Your cash: +" << monster->getCash();
 		}
 
 

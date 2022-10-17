@@ -1,0 +1,8 @@
+﻿  Engine.cpp
+  Event.cpp
+  Player.cpp
+  RPG.cpp
+E:\Emolod\Emolod\RPG\RPG.cpp(43,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
+E:\Emolod\Emolod\RPG\Engine.h(154): warning C4715: Engine::fight: значение возвращается не при всех путях выполнения
+  RPG.vcxproj -> E:\Emolod\Emolod\x64\Debug\RPG.exe

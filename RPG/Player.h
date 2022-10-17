@@ -10,7 +10,7 @@ private:
 
 	int power = 0;
 	int c = 22;
-	float agility = 0;
+	int agility = 0;
 	int endurance = 0;
 	int experience = 0;
 	int experienceMax = 0;
@@ -41,9 +41,11 @@ public:
 		this->health = this->healthMax;
 		this->energy = this->energyMax;
 		this->c += 4;
+
+		return 1;
 	}
 	int getLevel() {
-		return level;
+		return this->level;
 	}
 	void setCash(int cash) {
 		this->cash = cash;
@@ -101,6 +103,7 @@ public:
 	int experienceUp(int experience) {
 		this->experience += experience;
 
+		return this->experience;
 	}
 	int getExperience() {
 		return experience;
@@ -115,10 +118,18 @@ public:
 		}
 		int criticalChance = agility * 100 / percentage;
 
+		int divizion = 0;
+		if (criticalChance != 0) {
+			if ((10 / criticalChance) == 0) {
+				divizion = 1;
+			}
+			else {
+				divizion = (10 / criticalChance);
+			}
 
-
-		if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
-			return playerDamage = critical;
+			if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
+				return playerDamage = critical;
+			}
 		}
 
 		return playerDamage;
@@ -127,7 +138,14 @@ public:
 	int generateShield(int defense) {
 
 		int defenseChance = (((defense + endurance) - 3) * 100) / this->c;
-		if (1 + rand() % (10 / defenseChance) == 1 + rand() % (10 / defenseChance)) {
+		int divizion = 0;
+		if ((10 / defenseChance) == 0) {
+			divizion = 1;
+		}
+		else {
+			divizion = (10 / defenseChance);
+		}
+		if (1 + rand() % divizion == 1 + rand() % divizion) {
 			return (((defense + endurance) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
 		}
 		else {
