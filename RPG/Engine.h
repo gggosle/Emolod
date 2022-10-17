@@ -108,6 +108,7 @@ public:
 	int fight(Player* player, Monster* monster) {
 		char choice;
 		this->player = player;
+		this->monster = monster;
 		cout << "Your opponnent's stats: " << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
 		cout << "Experience: " << this->monster->getPlayerExperience() << endl << "Cash: " << this->monster->getCash() << endl;
 		cout << "You wanna fight?(y/n)";
