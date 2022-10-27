@@ -2,9 +2,18 @@
 #include "Monster.h"
 #include "Player.h"
 #include "NameHelper.h"
-#include "Event.h"
+#include "SaveLoad.h"
+//#include "Event.h"
+
 #include <ctime>
 #include "FunctionHelper.h"
+#include "SkillInterface.h"
+#include "MSkillInterface.h"
+#include "Block.h"
+#include "Attack.h"
+#include "CriticalAttack.h"
+#include "MBlock.h"
+#include "MAttack.h"
 #include <iostream>
 using namespace std;
 
@@ -14,28 +23,138 @@ private:
 	Player* player = NULL;
 	FunctionHelper* fH = NULL;
 	NameHelper* nH = NULL;
+	SaveLoad* saveL = NULL;
+	SkillInterface* skill = NULL;
+	MSkillInterface* mskill = NULL;
+	bool defenseChance() {
+		int defenseChance = ((((this->player->getShield()->getDefense() + this->player->getEndurance()) - 3) + 1) * 100) / this->player->getC();
+		if (1 + rand() % defenseChance == 1 + rand() % defenseChance) {
+			return 1;
+		}
+		return 0;
+	}
+	bool monsterDefenseChance() {
+		int c = 22;
+		c += this->monster->getLevel() * 4;
+		int shieldChance = (this->fH->randomRes(1, c) * 100) / c;
+		if (1 + rand() % shieldChance == 1 + rand() % shieldChance) {
+			return 1;
+		}
+	}
+	bool criticalChance() {
+		int percentage = 4;
+		for (int i = 0; i < this->player->getLevel(); i++) {
+			percentage += 4;
+		}
+		int criticalChance = this->player->getAgility() * 100 / percentage;
+		if (criticalChance != 0) {
 
-	void monsterTurn() {
-		int gap = 0;
-		int f = (this->player->getHealth() + this->player->generateShield(this->player->getShield()->getDefense())) - this->monster->generateDamage();
-		if (f < this->player->getHealth()) {
-			gap = this->player->getHealth() - f;
-			this->player->setHealth(f);
+			if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
+				return 1;
+			}
 		}
-		cout << "-" << gap << endl << "Your health: " << this->player->getHealth() << endl;
 	}
-	void playerTurn() {
+	int monsterTurn(bool miss) {
 		int gap = 0;
-		int f = (this->monster->getHealth() + this->monster->generateShield()) - this->player->generateDamage(this->player->getWeapon()->getDamage());
+		int f = 0;
+		
+		bool mb = 0;
+		int chance = rand() % 3;
+		if (miss == 1) {
+			cout << this->player->getName() << "'s block" << endl;
+			return 0;
+		}
+		if (monsterDefenseChance() == 1) {
+			mb = 1;
+		}
+		if (monsterDefenseChance() == 1 && chance == 0) {	
+				mskill = new MBlock();
+				this->monster->setHealth(mskill->use(this->monster));
+				f = this->monster->getHealth();		
+
+		}	
+		else {
+			mskill = new MAttack();
+			gap = this->mskill->use(this->monster);
+			f =this->player->getHealth() - gap;
+		}
+
+		
+
+		
+			if (f < this->player->getHealth()) {
+				(f < 0) ? player->setHealth(0) : this->player->setHealth(f);
+				cout << "-" << gap << endl << "Your health: " << this->player->getHealth() << endl;
+
+			}
+			
+
+		
+		
+
+		return mb;
+	}
+	int playerTurn(bool miss) {
+		int f = 0;
+		char action = 0;
+		int gap = 0;
+		bool cc = 0;
+		bool dc = 0;
+		bool pc = 0;
+
+		if (miss == 1) {
+			cout << this->monster->getName() << "'s block" << endl;
+			return 0;
+		}
+		cout << "To attack input 'a'" << endl;
+		
+		if (criticalChance() == true) {
+			cout << "To get critical attack input 'c'" << endl;
+			cc = 1;
+		}
+		if (defenseChance() == true) {
+			cout << "To get shield input 'd'" << endl;
+			dc = 1;
+		}
+		if (defenseChance() == true) {
+			pc = 1;
+		}
+		cin >> action;
+		if (action == 'a') {
+			this->skill = new Attack();
+			gap = this->skill->use(this->player);
+			f = this->monster->getHealth() - gap;
+		}
+		else if (cc == 1 && action == 'c') {
+			this->skill = new CriticalAttack();
+			gap = this->skill->use(this->player);
+			f = this->monster->getHealth() - gap;
+		}
+		else if (dc == 1 && action == 'd') {
+			this->skill = new Block();
+			this->player->setHealth(this->player->getHealth() + this->skill->use(this->player));
+			f = this->monster->getHealth();
+			cout << "Your health++: " << this->player->getHealth()<< endl;
+		}
+		else {
+			cout << "You were too kind to beat this creature, so you left it be" << endl;
+			return 0;
+		}
 		if (f < this->monster->getHealth()) {
-			gap = this->monster->getHealth() - f;
-			this->monster->setHealth(f);
+			(f < 0) ? monster->setHealth(0) : this->monster->setHealth(f);
+
+			cout << "-" << gap << endl << "Monster's health : " << this->monster->getHealth() << endl;
 		}
-		cout << "-" << gap << endl << "Monster's health : " << this->player->getHealth() << endl;
+		return pc;
 	}
+
 	void win() {
 		this->player->setCash(this->player->getCash() + this->monster->getCash());
+		cout << "Your experience: +" << monster->getPlayerExperience() << endl;
+		
 		this->player->setExperience(this->monster->getPlayerExperience());
+		cout << "Your cash: +" << monster->getCash() << endl;
+		
 	}
 public:
 	Engine(FunctionHelper* fH, NameHelper* nH)
@@ -46,18 +165,18 @@ public:
 	}
 
 	Shield* shieldGeneration() {
-		int price = 0;
-		int defense = this->fH->randomRes(3, 20);
+		int defense = this->fH->randomRes(4, 20);
+		int price = defense * 200;
 
-		return new Shield(this->nH->getShieldName(), defense, defense * 20);
+		return new Shield(this->nH->getShieldName(), defense, price);
 	}
 
 	Weapon* weaponGeneration() {
-		int price = 0;
-		int damage = this->fH->randomRes(3, 20);
+		
+		int damage = this->fH->randomRes(4, 20);
+		int price = damage * 200;
 
-
-		return new Weapon(this->nH->getWeaponName(), damage, damage * 20);
+		return new Weapon(this->nH->getWeaponName(), damage, price);
 	}
 
 
@@ -66,10 +185,10 @@ public:
 		int choice = 0;
 		string name = "";
 
-
+		
 		cout << "Name:";
 		cin >> name;
-		cout << endl << "Your role(barbarian - 1, tank - 2, thief - 3): ";
+		cout << "Your role(barbarian - 1, tank - 2, thief - 3): ";
 		cin >> choice;
 		if (choice == 1) {
 			power += 3;
@@ -82,18 +201,19 @@ public:
 		}
 
 
-		return new Player(30, 30, 1, power, agility, endurance, name, 50);
+		return new Player(35, 30, 1, power, agility, endurance, name, 50);
 	}
 
 	Monster* monsterGeneration(int level) {
 
-		level = this->fH->randomRes(level - 2, level + 2);
+		level = this->fH->randomRes(level - 1, level + 1);
+		
 		int health = 25;
 		int energy = 25;
 		int cash = 10;
 		cash = this->fH->getCharacteristic(cash, level, 5);
 
-		health = this->fH->getCharacteristic(health, level, 10);
+		health = this->fH->getCharacteristic(health, level-1, 10);
 		energy = this->fH->getCharacteristic(energy, level, 10);
 		int playerExperience = this->fH->getCharacteristic(0, level, 10);
 		Monster* monster = new Monster(
@@ -106,50 +226,69 @@ public:
 		return monster;
 	}
 	int fight(Player* player, Monster* monster) {
+		this->saveL = new SaveLoad();
+		int f = 0;
 		char choice;
 		this->player = player;
-		cout << "Your opponnent's stats: " << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
+		this->monster = monster;
+		cout <<endl<< "Your opponnent's stats: " << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
 		cout << "Experience: " << this->monster->getPlayerExperience() << endl << "Cash: " << this->monster->getCash() << endl;
 		cout << "You wanna fight?(y/n)";
 		cin >> choice;
-		if (choice == 'n') {
+		
+		if (choice == 't') {
+			this->player->stats();
+			return 0;
+		}
+		else if (choice == 's') {
+			this->saveL->save(player);
+			cout << "You saved your progress" << endl;
+			return 0;
+		}
+		else if(choice != 'y') {
 			return 0;
 		}
 		this->player->setEnergy(this->player->getEnergy() - this->monster->getLevel() * 2);
 
-		int f = 0;
+		
 		int c = rand() % 2;
-		if (c == 0) {
-			while (this->player->getHealth() > 0 || this->monster->getHealth() > 0) {
-				playerTurn();
-				if (f == 0) {
+		bool pd = 0;
+		bool md = 0;
+		if (c == 1) {
+			cout << "Your turn!" << endl;
+			do  {
+				pd = playerTurn(md);
+				if (this->monster->getHealth() <= 0) {
 					cout << "You win!" << endl;
 					win();
 					break;
 				}
-				monsterTurn();
-				if (f == 0) {
+				md = monsterTurn(pd);
+				if (this->player->getHealth() <= 0) {
 					cout << "You lose!" << endl;
 					break;
 				}
-			}
+			} while (this->player->getHealth() > 0 || this->monster->getHealth() > 0);
 		}
 		else {
-			while (this->player->getHealth() > 0 || this->monster->getHealth() > 0) {
-				monsterTurn();
-				if (f == 0) {
+			cout << "Opponent's turn!" << endl;
+			do  {
+				md = monsterTurn(pd);
+				if (this->player->getHealth() <= 0) {
 					cout << "You lose!" << endl;
 					break;
 				}
-				playerTurn();
-				if (f == 0) {
+				pd = playerTurn(md);
+				if (this->monster->getHealth() <= 0) {
 					cout << "You win!" << endl;
 					win();
 					break;
 				}
-			}
+			} while ((this->player->getHealth() > 0 || this->monster->getHealth() > 0));
 		}
 		this->player->healthRegeneration();
+		
+		
+
 	}
 };
-

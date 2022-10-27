@@ -26,15 +26,16 @@ public:
 	}
 
 	void setHealth(int health) {
-		if (health > this->healthMax) {
-			this->health = this->healthMax;
-		}
-		else {
-			this->health = health;
-		}
+		this->health = health;
 	}
 	int getHealth() {
 		return health;
+	}
+	void setHealthMax(int healthMax) {
+		this->healthMax = healthMax;
+	}
+	int getHealthMax() {
+		return this->healthMax;
 	}
 	void setEnergy(int energy) {
 		if (energy > this->energyMax) {

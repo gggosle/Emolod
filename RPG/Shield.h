@@ -11,6 +11,7 @@ private:
 public:
 	Shield(string name, int shield, int price) : NameTrait(name) {
 		this->defense = shield;
+		this->price = price;
 	}
 	void setPrice(int price) {
 		this->price = price;
@@ -25,7 +26,7 @@ public:
 		return defense;
 	}
 	void showShieldData() {
-		cout << this->name << " defense value:  " << this->defense << " ------  price: " << this->price << endl;
+		cout << this->name << " | defense value:  " << this->defense << " | price: " << this->price << endl;
 	}
 };
 

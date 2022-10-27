@@ -1,0 +1,16 @@
+﻿  Attack.cpp
+  Block.cpp
+  CriticalAttack.cpp
+  Engine.cpp
+  Event.cpp
+  NameHelper.cpp
+  Player.cpp
+  RPG.cpp
+C:\Users\gakho\Desktop\New folder\Emolod\RPG\RPG.cpp(84,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  SaveLoad.cpp
+  SkillInterface.cpp
+  Generating Code...
+C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(293): warning C4715: 'Engine::fight': not all control paths return a value
+C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(56): warning C4715: 'Engine::criticalChance': not all control paths return a value
+C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(43): warning C4715: 'Engine::monsterDefenseChance': not all control paths return a value
+  RPG.vcxproj -> C:\Users\gakho\Desktop\New folder\Emolod\x64\Debug\RPG.exe

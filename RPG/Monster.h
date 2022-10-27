@@ -5,9 +5,10 @@ class Monster : public Characteristics {
 
 private:
 	int damage = 0;
-	int shield = 0;
+
 	int playerExperience = 0;
 	int cash = 0;
+	int defense = 0;
 public:
 	Monster(string name, int health, int energy, int playerExperience, int level) : Characteristics(health, energy, name, level) {
 		this->playerExperience = playerExperience;
@@ -20,11 +21,9 @@ public:
 	int getCash() {
 		return cash;
 	}
-	void setDamage(int damage) {
-		this->damage = damage;
-	}
-	void setShield(int shield) {
-		this->shield = shield;
+	
+	int getLevel() {
+		return this->level;
 	}
 
 	void setPlayerExperience(int playerExperience) {
@@ -33,19 +32,19 @@ public:
 	int getPlayerExperience() {
 		return playerExperience;
 	}
-	int generateDamage() {
-		return this->fH->getCharacteristic(health, level, 10) / (rand() % 10);
+	int getDamage() {
+		int r = 22;
+		for (int i = 0; i < level - 1; i++) {
+			r += 4;
+		}
+		int min = 4;
+		int max = 7;
+		min = this->fH->getCharacteristic(min, level - 2, rand() % 5);
+		max = this->fH->getCharacteristic(max, level - 2, rand() % 5 + rand() % 2 + 1);
+		return damage = this->fH->randomRes(min, max)*this->fH->getCharacteristic(health, level, 10) / r;
 	}
 
-	int generateShield() {
-		int c = 22;
-		c += level * 4;
-		int shieldChance = (this->fH->randomRes(0, c) * 100) / c;
-		if (1 + rand() % (10 / shieldChance) == 1 + rand() % (10 / shieldChance)) {
-			return this->fH->getCharacteristic(health, level, 10) / (rand() % 10);
-		}
-		else {
-			return shield;
-		}
+	int getDefense() {
+		return defense = this->fH->getCharacteristic(health, level, 10) / (1 + rand() % 10);
 	}
 };

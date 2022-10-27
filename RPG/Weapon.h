@@ -9,6 +9,7 @@ class Weapon : public NameTrait {
 public:
 	Weapon(string name, int damage, int price) :NameTrait(name) {
 		this->damage = damage;
+		this->price = price; 
 	}
 	void setPrice(int price) {
 		this->price = price;
@@ -23,7 +24,7 @@ public:
 		return damage;
 	}
 	void showWeaponData() {
-		cout << this->name << " defense value:  " << this->damage << " ------  price: " << this->price << endl;
+		cout << this->name << " | damage value:  " << this->damage << " | price: " << this->price << endl;
 	}
 };
 

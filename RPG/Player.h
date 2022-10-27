@@ -7,15 +7,17 @@ using namespace std;
 
 class Player : public Characteristics {
 private:
-
+	int hp = 0;
+	int mp = 0;
+	int exp = 0;
 	int power = 0;
 	int c = 22;
-	float agility = 0;
+	int agility = 0;
 	int endurance = 0;
 	int experience = 0;
 	int experienceMax = 0;
 	int playerDamage = 0;
-	int playerShield = 0;
+	int playerDefense = 0;
 	int cash = 0;
 	Shield* shield = NULL;
 	Weapon* weapon = NULL;
@@ -23,16 +25,60 @@ private:
 public:
 	Player(int health, int energy, int level, int power, int agility, int endurance, string name, int cash) :Characteristics(health, energy, name, level)
 	{
+		this->hp = 100;
+		this->mp = 50;
+		this->exp = 10;
 		this->cash = cash;
 		this->power = power;
 		this->agility = agility;
 		this->endurance = endurance;
 		this->experience = 0;
 		this->level = level;
-		this->experienceMax = 1000 * this->level;
+		this->experienceMax = 100 * this->level;
 
 	}
+	void setHp(int hp) {
+		this->hp = hp;
+	}
+	int getHp() {
+		return this->hp;
+	}
 
+	void setMp(int mp) { 
+		this->mp = mp;
+	}
+	int getMp() {
+		return this->mp;
+	}
+
+	void setExp(int exp) {
+		this->exp = exp; 
+	}
+	int getExp() {
+		return this->exp;
+	}
+	int getEndurance() {
+		return this->endurance;
+	}
+	int getPower() {
+		return this->power;
+	}
+	int getAgility() {
+		return this->agility;
+	}
+
+	void stats() {
+		cout<<endl << "Cash: " << this->cash<< endl;
+		cout << "Power: " << this->power << endl;
+		cout << "Agility: " << this->agility << endl;
+		cout << "Endurance: " << this->endurance << endl;
+		cout << "XP: " << this->experience << endl;
+		cout << "Level: " << this->level << endl;
+		cout << "Health: " << this->healthMax << endl;
+		cout << "Your weapon: " << this->getWeapon()->getName() << " with damage value " << this->getWeapon()->getDamage() << endl;
+		cout << "Your shield: " << this->getShield()->getName() << " with defense value " << this->getShield()->getDefense() << endl << endl;
+
+	}
 	int levelUp() {
 		this->level += 1;
 		this->agility += rand() % 5;
@@ -41,9 +87,18 @@ public:
 		this->health = this->healthMax;
 		this->energy = this->energyMax;
 		this->c += 4;
+		cout <<endl<< "Congrats! You've reached new level!" << endl;
+		cout << "Your power now: " << getPower() << endl;
+		cout << "Your agility now: " << getAgility() << endl;
+		cout << "Your endurance now: " << getEndurance() << endl;
+
+		return 1;
 	}
 	int getLevel() {
-		return level;
+		return this->level;
+	}
+	int getC() {
+		return this->c;
 	}
 	void setCash(int cash) {
 		this->cash = cash;
@@ -75,16 +130,11 @@ public:
 	void setPower(int power) {
 		this->power = power;
 	}
-	int getPower() {
-		return power;
-	}void setAgility(int agility) {
+	void setAgility(int agility) {
 		this->agility = agility;
-	}int getAgility() {
-		return agility;
-	}void setEndurance(int endurance) {
+	}
+	void setEndurance(int endurance) {
 		this->endurance = endurance;
-	}int getEndurance() {
-		return endurance;
 	}
 	int cashUp(int cash) {
 		this->cash += cash;
@@ -101,41 +151,35 @@ public:
 	int experienceUp(int experience) {
 		this->experience += experience;
 
+		return this->experience;
 	}
 	int getExperience() {
 		return experience;
 	}
-
-	int generateDamage(int damage) {
-		int playerDamage = (((damage + power) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
-		int critical = this->fH->getCharacteristic(health, level, 10);
-		int percentage = 4;
+	void setCriticalDamage(int damage) {
+		int playerDamage = this->fH->getCharacteristic(health, level, 10);
+		/*int percentage = 4;
 		for (int i = 0; i < level; i++) {
 			percentage += 4;
 		}
 		int criticalChance = agility * 100 / percentage;
+		if (criticalChance != 0) {
 
+			if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
+				playerDamage =  this->fH->getCharacteristic(health, level, 10);
+			}
+		}*/
+	}
 
-
-		if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
-			return playerDamage = critical;
+	void setDamage(int damage) {
+		playerDamage = (((damage + this->power) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;	
 		}
-
+	int getDamage() {
 		return playerDamage;
 	}
-
-	int generateShield(int defense) {
-
-		int defenseChance = (((defense + endurance) - 3) * 100) / this->c;
-		if (1 + rand() % (10 / defenseChance) == 1 + rand() % (10 / defenseChance)) {
-			return (((defense + endurance) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
-		}
-		else {
-			return playerShield;
-		}
-
-
+	int getDefense(int defense) {
+		return playerDefense = (((defense + endurance) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
 	}
-
 };
+
 

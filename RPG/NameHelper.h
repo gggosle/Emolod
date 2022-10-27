@@ -4,9 +4,9 @@ using namespace std;
 
 class NameHelper {
 private:
-	string monsterNames[10] = { "Bogeyman","Vampire","Zombie", "Hydra","Chimera","Yeti","Dragon","Basilisk","Werewolf", "Gorgon" };
-	string shieldNames[5] = { "Viking Shield", "Bouche Shield","Buckler Shield","Heater Shield","Kite Shield" };
-	string weaponNames[5] = { "Sword", "Dagger", "Pike", "Axe", "Spear" };
+	string monsterNames[10] = { "Russian baby","Vampire","Zombie", "Hydra","Chimera","Yeti","Dragon","Basilisk","Werewolf", "Gorgon" };
+	string shieldNames[5] = { "Stone", "Wood","Magic","Diamond","Water" };
+	string weaponNames[5] = { "Sword", "Stone", "Bow", "Axe", "Spear" };
 public:
 	string getMonsterName() {
 		return this->monsterNames[rand() % 10];

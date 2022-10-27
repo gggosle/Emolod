@@ -139,28 +139,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attack.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Characteristics.cpp" />
+    <ClCompile Include="CriticalAttack.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FunctionHelper.cpp" />
+    <ClCompile Include="MAttack.cpp" />
+    <ClCompile Include="MBlock.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MSkillInterface.cpp" />
     <ClCompile Include="NameHelper.cpp" />
     <ClCompile Include="NameTrait.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RPG.cpp" />
+    <ClCompile Include="SaveLoad.cpp" />
     <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="SkillInterface.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attack.h" />
+    <ClInclude Include="Block.h" />
     <ClInclude Include="Characteristics.h" />
+    <ClInclude Include="CriticalAttack.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FunctionHelper.h" />
+    <ClInclude Include="MAttack.h" />
+    <ClInclude Include="MBlock.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MSkillInterface.h" />
     <ClInclude Include="NameHelper.h" />
     <ClInclude Include="NameTrait.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SaveLoad.h" />
     <ClInclude Include="Shield.h" />
+    <ClInclude Include="SkillInterface.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
