@@ -44,28 +44,9 @@ public:
 		return damage = this->fH->randomRes(min, max)*this->fH->getCharacteristic(health, level, 10) / r;
 	}
 
-<<<<<<< HEAD
+
 	int getDefense() {
 		return defense = this->fH->getCharacteristic(health, level, 10) / (1 + rand() % 10);
-=======
-	int generateShield() {
-		int c = 22;
-		c += level * 4;
-		int shieldChance = (this->fH->randomRes(0, c) * 100) / c;
-		int divizion = 0;
-		if ((10 / shieldChance) == 0) {
-			divizion = 1;
-		}
-		else {
-			divizion = (10 / shieldChance);
-		}
 
-		if (1 + rand() % divizion == 1 + rand() % divizion) {
-			return this->fH->getCharacteristic(health, level, 10) / (1 + rand() % 10);
-		}
-		else {
-			return shield;
-		}
->>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 	}
 };

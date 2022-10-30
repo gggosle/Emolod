@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 PlatformToolSet=v142:VCToolArchitecture=Native32Bit:VCToolsVersion=14.29.30133:TargetPlatformVersion=10.0.19041.0:
 Debug|x64|C:\Users\gakho\Desktop\New folder\Emolod\|
-=======
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v142:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0
-Debug|x64|E:\Emolod\Emolod\|
->>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e

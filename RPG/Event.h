@@ -6,16 +6,53 @@
 #include "FunctionHelper.h"
 #include "NameHelper.h"
 #include <iostream>
+#include "PotionInterface.h"
+#include "HpPotion.h"
+#include "PPotion.h"
+#include "ExpPotion.h"
+#include "EPotion.h"
+#include "APotion.h"
 using namespace std;
 
 class Event {
 private:
 	int n = 0;
-<<<<<<< HEAD
+	int addPotion(Player* player) {
+		vector <PotionInterface*> inventory;
 
-=======
-	
->>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
+		for (int i = 0; i < 10; i++) {
+			PotionInterface* pi = NULL;
+			int c = rand() % 5;
+
+			if (c == 0) {
+				pi = new HpPotion();
+			}
+			else if (c == 1) {
+				pi = new PPotion();
+			}
+			else if (c == 2) {
+				pi = new ExpPotion();
+			}
+			else if (c == 3) {
+				pi = new EPotion();
+			}
+			else {
+				pi = new APotion();
+			}
+
+			inventory.push_back(pi);
+		}
+
+
+		for (int i = 0; i < inventory.size(); i++) {
+			inventory[i]->drink(player);
+		}
+
+		return 1;
+
+	}
+
+
 	//Monster* monster = NULL;
 	Player* player = NULL;
 	Engine* engine = NULL;
@@ -28,7 +65,19 @@ public:
 	}
 	void potionShop() {
 		if (this->player->getCash() >= 60) {
+			char c = 0;
+			int price = rand() % 1000 + 1;
 			cout << "You look in your wallet and see " << this->player->getCash() << " hryvnias" << endl;
+			cout << "Potion price: " << price << endl;
+			cout << "Get random potion?(y/n)" << endl;
+			cin >> c;
+			if (c == 'y' && this->player->getCash() >= price) {
+				addPotion(player);
+			}
+			else {
+				cout << "Right now we have nothing to offer you" << endl;
+			}
+
 		}
 	}
 	void shop() {
@@ -72,7 +121,7 @@ public:
 					cout << "Unfortunately, now you don't have enough money for this item " << endl;
 				}
 			}
-			
+
 		}
 		else {
 			cout << "Right now we have nothing to offer you. See you next time" << endl;
@@ -83,31 +132,12 @@ public:
 	}
 	bool bumpIntoMonster() {
 		Monster* monster = this->engine->monsterGeneration(this->player->getLevel());
-<<<<<<< HEAD
 		this->engine->fight(player, monster);
 		return 0;
 	}
-	
-		
-		
-=======
-		this->engine->fight(this->player, monster);
-		return 0;
-	}
-	void improvement(Monster* monster) {
-		if (this->player->levelUp()) {
-			cout << "Congrats! You've reached new level!" << endl;
-			cout << "Your power now: " << this->player->getPower() << endl;
-			cout << "Your agility now: " << this->player->getAgility() << endl;
-			cout << "Your endurance now: " << this->player->getEndurance() << endl;
-		}
-		if (this->player->experienceUp(monster->getPlayerExperience())) {
-			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
-		}
-		if (this->player->cashUp(monster->getCash())) {
-			cout << "Your cash: +" << monster->getCash();
-		}
->>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 
-	
+
+
+
+
 };
