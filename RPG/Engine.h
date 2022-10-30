@@ -2,9 +2,13 @@
 #include "Monster.h"
 #include "Player.h"
 #include "NameHelper.h"
+<<<<<<< HEAD
 #include "SaveLoad.h"
 //#include "Event.h"
 
+=======
+//#include "Event.h"
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 #include <ctime>
 #include "FunctionHelper.h"
 #include "SkillInterface.h"
@@ -231,7 +235,11 @@ public:
 		char choice;
 		this->player = player;
 		this->monster = monster;
+<<<<<<< HEAD
 		cout <<endl<< "Your opponnent's stats: " << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
+=======
+		cout << "Your opponnent's stats: " << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 		cout << "Experience: " << this->monster->getPlayerExperience() << endl << "Cash: " << this->monster->getCash() << endl;
 		cout << "You wanna fight?(y/n)";
 		cin >> choice;

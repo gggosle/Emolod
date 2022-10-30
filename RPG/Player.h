@@ -87,18 +87,24 @@ public:
 		this->health = this->healthMax;
 		this->energy = this->energyMax;
 		this->c += 4;
+<<<<<<< HEAD
 		cout <<endl<< "Congrats! You've reached new level!" << endl;
 		cout << "Your power now: " << getPower() << endl;
 		cout << "Your agility now: " << getAgility() << endl;
 		cout << "Your endurance now: " << getEndurance() << endl;
+=======
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 
 		return 1;
 	}
 	int getLevel() {
 		return this->level;
+<<<<<<< HEAD
 	}
 	int getC() {
 		return this->c;
+=======
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 	}
 	void setCash(int cash) {
 		this->cash = cash;
@@ -165,6 +171,7 @@ public:
 		int criticalChance = agility * 100 / percentage;
 		if (criticalChance != 0) {
 
+<<<<<<< HEAD
 			if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
 				playerDamage =  this->fH->getCharacteristic(health, level, 10);
 			}
@@ -173,12 +180,48 @@ public:
 
 	void setDamage(int damage) {
 		playerDamage = (((damage + this->power) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;	
+=======
+		int divizion = 0;
+		if (criticalChance != 0) {
+			if ((10 / criticalChance) == 0) {
+				divizion = 1;
+			}
+			else {
+				divizion = (10 / criticalChance);
+			}
+
+			if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
+				return playerDamage = critical;
+			}
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 		}
 	int getDamage() {
 		return playerDamage;
 	}
+<<<<<<< HEAD
 	int getDefense(int defense) {
 		return playerDefense = (((defense + endurance) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
+=======
+
+	int generateShield(int defense) {
+
+		int defenseChance = (((defense + endurance) - 3) * 100) / this->c;
+		int divizion = 0;
+		if ((10 / defenseChance) == 0) {
+			divizion = 1;
+		}
+		else {
+			divizion = (10 / defenseChance);
+		}
+		if (1 + rand() % divizion == 1 + rand() % divizion) {
+			return (((defense + endurance) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;
+		}
+		else {
+			return playerShield;
+		}
+
+
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 	}
 };
 

@@ -11,7 +11,11 @@ using namespace std;
 class Event {
 private:
 	int n = 0;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 	//Monster* monster = NULL;
 	Player* player = NULL;
 	Engine* engine = NULL;
@@ -79,12 +83,31 @@ public:
 	}
 	bool bumpIntoMonster() {
 		Monster* monster = this->engine->monsterGeneration(this->player->getLevel());
+<<<<<<< HEAD
 		this->engine->fight(player, monster);
 		return 0;
 	}
 	
 		
 		
+=======
+		this->engine->fight(this->player, monster);
+		return 0;
+	}
+	void improvement(Monster* monster) {
+		if (this->player->levelUp()) {
+			cout << "Congrats! You've reached new level!" << endl;
+			cout << "Your power now: " << this->player->getPower() << endl;
+			cout << "Your agility now: " << this->player->getAgility() << endl;
+			cout << "Your endurance now: " << this->player->getEndurance() << endl;
+		}
+		if (this->player->experienceUp(monster->getPlayerExperience())) {
+			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
+		}
+		if (this->player->cashUp(monster->getCash())) {
+			cout << "Your cash: +" << monster->getCash();
+		}
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 
 	
 };

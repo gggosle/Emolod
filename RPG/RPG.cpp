@@ -14,6 +14,21 @@
 #include "Event.h"
 #include <fstream>
 #include <conio.h>
+<<<<<<< HEAD
+=======
+
+using namespace std;
+class SaveLoad {
+public:
+	Player* load() {
+		Player* player = NULL;
+		ifstream load;
+		load.open("emolod.txt");
+		load.read((char*)&player, sizeof(Player));
+		load.close();
+
+		return player;
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 
 using namespace std;
 
@@ -92,6 +107,7 @@ int main() {
 	}
 	else {
 		player = engine->playerGeneration();
+<<<<<<< HEAD
 		Weapon* fists = new Weapon("bare fists", 4, 0);
 		player->setWeapon(fists);
 		Shield* adrenaline = new Shield("adrenaline", 4, 0);
@@ -103,12 +119,18 @@ int main() {
 	cout << endl;
 	cout << "To save your character's progress input 's'" << endl;
 	cout << "To see your stats input 't'" << endl;
+=======
+		player->setWeapon(engine->weaponGeneration());
+		player->setShield(engine->shieldGeneration());
+	}
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 	
 	Event* event = new Event(player, engine);
 	int pos = 0;
 	
 	
 	while (player->getLevel() < 10) {
+<<<<<<< HEAD
 		
 		
 			pos = 1 + rand() % 100;
@@ -132,6 +154,18 @@ int main() {
 		
 		
 
+=======
+		pos = 1 + rand() % 100;
+		if (pos <= 5) {
+			event->shop();
+		}
+		else if (pos > 5 && pos <= 45) {
+			event->bumpIntoMonster();
+		}
+		else if (pos > 45 && pos <= 70) {
+			player->setEnergy(1 + rand() % 5);
+		}
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
 	}
 	/*saveload->save(player);*/
 	

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Attack.cpp
   Block.cpp
   CriticalAttack.cpp
@@ -14,3 +15,13 @@ C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(293): warning C4715: 'Engi
 C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(56): warning C4715: 'Engine::criticalChance': not all control paths return a value
 C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(43): warning C4715: 'Engine::monsterDefenseChance': not all control paths return a value
   RPG.vcxproj -> C:\Users\gakho\Desktop\New folder\Emolod\x64\Debug\RPG.exe
+=======
+﻿  Engine.cpp
+  Event.cpp
+  Player.cpp
+  RPG.cpp
+E:\Emolod\Emolod\RPG\RPG.cpp(43,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
+E:\Emolod\Emolod\RPG\Engine.h(154): warning C4715: Engine::fight: значение возвращается не при всех путях выполнения
+  RPG.vcxproj -> E:\Emolod\Emolod\x64\Debug\RPG.exe
+>>>>>>> 25b75d01ff6c8e7a8dfa5c3968e1e1e1a06bd34e
