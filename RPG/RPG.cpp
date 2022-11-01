@@ -15,6 +15,8 @@
 #include <fstream>
 #include <conio.h>
 
+
+
 using namespace std;
 
 
@@ -55,11 +57,13 @@ using namespace std;
 
 
 int main() {
+	
 	srand(time(NULL));
 	Player* player = NULL;
 	Engine* engine = new Engine(new FunctionHelper(), new NameHelper());
 	SaveLoad* saveload = new SaveLoad();
 	cout << "Continue?(Press 'c')" << endl;
+	
 	int key = _getch();
 	if (key == 99) {
 		player = saveload->load();
@@ -86,7 +90,7 @@ int main() {
 	while (player->getLevel() < 10) {
 
 
-		pos = 1 + rand() % 100;
+		pos = 1 + rand() % 75;
 		if (pos <= 5) {
 			cout << endl;
 			event->shop();
@@ -103,7 +107,7 @@ int main() {
 			player->setHealthMax(player->getHealthMax() + 1);
 			cout << "Health: " << player->getHealthMax() << endl;
 		}
-		else {
+		else if (pos > 70 && pos <= 75) {
 			cout << endl;
 			event->potionShop();
 		}

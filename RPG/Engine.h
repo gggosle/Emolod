@@ -15,6 +15,12 @@
 #include "MBlock.h"
 #include "MAttack.h"
 #include <iostream>
+#include "PotionInterface.h"
+#include "APotion.h"
+#include "EPotion.h"
+#include "PPotion.h"
+#include "ExpPotion.h"
+#include "HpPotion.h"
 using namespace std;
 
 class Engine {
@@ -149,12 +155,20 @@ private:
 	}
 
 	void win() {
-		this->player->setCash(this->player->getCash() + this->monster->getCash());
-		cout << "Your experience: +" << monster->getPlayerExperience() << endl;
+		if (this->monster->getName() == "Yeti") {
+			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
+			cout << " “Regulations Governing Mountain Climbing Expeditions in Nepal — Relating to Yeti.:”" << endl;
+			cout << "2. Hunters can photograph or catch a Yeti but not shoot or kill it — unless in self-defense." << endl;
+			cout << "Penalty: 500 griven" << endl;
+			this->player->setCash(this->player->getCash() - 500);
+		}
+		else {
+			this->player->setCash(this->player->getCash() + this->monster->getCash());
+			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
 
-		this->player->setExperience(this->monster->getPlayerExperience());
-		cout << "Your cash: +" << monster->getCash() << endl;
-
+			this->player->setExperience(this->monster->getPlayerExperience());
+			cout << "Your cash: +" << monster->getCash() << endl;
+		}
 	}
 public:
 	Engine(FunctionHelper* fH, NameHelper* nH)
@@ -225,13 +239,44 @@ public:
 
 		return monster;
 	}
+	
+	PPotion* pPotionGeneration() {
+		int def = this->fH->randomRes(3, 10);
+		int price = def * 200;
+		PPotion* power = new PPotion(price, def);
+		return power;
+	}
+	APotion* aPotionGeneration() {
+		int def = this->fH->randomRes(3, 10);
+		int price = def * 200;
+		APotion* agility = new APotion(price, def);
+		return agility;
+	}
+	EPotion* ePotionGeneration() {
+		int def = this->fH->randomRes(3, 10);
+		int price = def * 200;
+		EPotion* endurance = new EPotion(price, def);
+		return endurance;
+	}
+	ExpPotion* expPotionGeneration() {
+		int def = this->fH->randomRes(10, 60);
+		int price = def * 20*3;
+		ExpPotion* experience = new ExpPotion(price, def);
+		return experience;
+	}
+	HpPotion* hpPotionGeneration() {
+		int def = this->fH->randomRes(3, 10);
+		int price = def * 200;
+		HpPotion* health = new HpPotion(price, def);
+		return health;
+	}
 	int fight(Player* player, Monster* monster) {
 		this->saveL = new SaveLoad();
 		int f = 0;
 		char choice;
 		this->player = player;
 		this->monster = monster;
-		cout << endl << "Your opponnent's stats: " << this->monster->getName() << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
+		cout << endl << "Your opponnent's stats: "<<endl << this->monster->getName() << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
 		cout << "Experience: " << this->monster->getPlayerExperience() << endl << "Cash: " << this->monster->getCash() << endl;
 		cout << "You wanna fight?(y/n)";
 		cin >> choice;

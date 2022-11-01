@@ -12,45 +12,13 @@
 #include "ExpPotion.h"
 #include "EPotion.h"
 #include "APotion.h"
+#include <ctime>
 using namespace std;
 
 class Event {
 private:
 	int n = 0;
-	int addPotion(Player* player) {
-		vector <PotionInterface*> inventory;
-
-		for (int i = 0; i < 10; i++) {
-			PotionInterface* pi = NULL;
-			int c = rand() % 5;
-
-			if (c == 0) {
-				pi = new HpPotion();
-			}
-			else if (c == 1) {
-				pi = new PPotion();
-			}
-			else if (c == 2) {
-				pi = new ExpPotion();
-			}
-			else if (c == 3) {
-				pi = new EPotion();
-			}
-			else {
-				pi = new APotion();
-			}
-
-			inventory.push_back(pi);
-		}
-
-
-		for (int i = 0; i < inventory.size(); i++) {
-			inventory[i]->drink(player);
-		}
-
-		return 1;
-
-	}
+	
 
 
 	//Monster* monster = NULL;
@@ -58,6 +26,7 @@ private:
 	Engine* engine = NULL;
 	vector <Shield*> shiel;
 	vector <Weapon*> weap;
+	vector <PotionInterface*> inventory;
 public:
 	Event(Player* player, Engine* engine) {
 		this->player = player;
@@ -65,24 +34,52 @@ public:
 	}
 	void potionShop() {
 		if (this->player->getCash() >= 60) {
-			char c = 0;
-			int price = rand() % 1000 + 1;
-			cout << "You look in your wallet and see " << this->player->getCash() << " hryvnias" << endl;
-			cout << "Potion price: " << price << endl;
-			cout << "Get random potion?(y/n)" << endl;
+			int c = 0;
+			cout << "You look in your wallet and see " << this->player->getCash() << " grivnas" << endl;
+			inventory.clear();
+			for (int i = 0; i < 5; i++) {
+				int k = rand()%5;
+				if (k == 0) {
+					inventory.push_back(this->engine->aPotionGeneration());
+				}
+				else if (k == 1) {
+					inventory.push_back(this->engine->ePotionGeneration());
+				}
+				else if (k == 2) {
+					inventory.push_back(this->engine->pPotionGeneration());
+				}
+				else if (k == 3) {
+					inventory.push_back(this->engine->expPotionGeneration());
+				}
+				else {
+					inventory.push_back(this->engine->hpPotionGeneration());
+				}
+			}
+			for (int i = 0; i < 5; i++) {
+				cout << i + 1 << ". ";
+				inventory[i]->showPotionData(inventory[i]->getName());
+			}
+			
+			cout << "Input number of item you chose or other if you want to leave: " << endl;
 			cin >> c;
-			if (c == 'y' && this->player->getCash() >= price) {
-				addPotion(player);
+			for (int i = 0; i < 5; i++) {
+				if (c == i-1) {
+					if (this->player->getCash() >= inventory[i]->getPrice()) {
+						inventory[i]->drink(player);
+					}
+					else {
+						cout << "Unfortunately, you don't have enough money for this item" << endl;
+					}
+				}
 			}
-			else {
-				cout << "Right now we have nothing to offer you" << endl;
-			}
+			cout << "Good luck on your way, "  << this->player->getName() << endl;
 
 		}
 	}
 	void shop() {
-		if (this->player->getCash() >= 60) {
-			cout << "You look in your wallet and see " << this->player->getCash() << " hryvnias" << endl;
+			cout << "You look in your wallet and see " << this->player->getCash() << " grivnas" << endl;
+			shiel.clear();
+			weap.clear();
 			while (shiel.size() < 3) {
 				shiel.push_back(this->engine->shieldGeneration());
 			}
@@ -97,12 +94,10 @@ public:
 				cout << i + 4 << ". ";
 				weap[i]->showWeaponData();
 			}
-			cout << "Input number of item you chose or leave('9'): ";
+			cout << "Input number of item you chose or other if you want to leave: ";
 			cin >> n;
-			if (n == 9) {
-				cout << "Right now we have nothing else to offer you. See you next time" << endl;
-			}
-			else if (n < 4) {
+			
+			if (n < 4 && n > 0) {
 				if (shiel[n - 1]->getPrice() <= this->player->getCash()) {
 					this->player->setCash(this->player->getCash() - shiel[n - 1]->getPrice());
 					this->player->setShield(shiel[n - 1]);
@@ -111,7 +106,7 @@ public:
 					cout << "Unfortunately, now you don't have enough money for this item " << endl;
 				}
 			}
-			else {
+			else if(n>=4 && n < 7) {
 				if (weap[n - 4]->getPrice() <= this->player->getCash()) {
 					this->player->setCash(this->player->getCash() - weap[n - 4]->getPrice());
 					this->player->setWeapon(weap[n - 4]);
@@ -121,13 +116,9 @@ public:
 					cout << "Unfortunately, now you don't have enough money for this item " << endl;
 				}
 			}
-
-		}
-		else {
-			cout << "Right now we have nothing to offer you. See you next time" << endl;
-		}
-
-
+			else {
+				cout << "Right now we have nothing else to offer you. See you next time" << endl;
+			}
 
 	}
 	bool bumpIntoMonster() {

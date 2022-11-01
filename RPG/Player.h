@@ -161,7 +161,7 @@ public:
 		return experience;
 	}
 	void setCriticalDamage(int damage) {
-		int playerDamage = this->fH->getCharacteristic(health, level, 10);
+		playerDamage = (((damage + this->power) - 3) * this->fH->getCharacteristic(health, level, 10));
 		/*int percentage = 4;
 		for (int i = 0; i < level; i++) {
 			percentage += 4;
