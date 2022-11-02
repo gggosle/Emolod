@@ -150,6 +150,7 @@
     <ClCompile Include="ExpPotion.cpp" />
     <ClCompile Include="FunctionHelper.cpp" />
     <ClCompile Include="HpPotion.cpp" />
+    <ClCompile Include="Id.cpp" />
     <ClCompile Include="MAttack.cpp" />
     <ClCompile Include="MBlock.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="SaveLoad.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SkillInterface.cpp" />
+    <ClCompile Include="SpecialAttack.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +179,7 @@
     <ClInclude Include="ExpPotion.h" />
     <ClInclude Include="FunctionHelper.h" />
     <ClInclude Include="HpPotion.h" />
+    <ClInclude Include="Id.h" />
     <ClInclude Include="MAttack.h" />
     <ClInclude Include="MBlock.h" />
     <ClInclude Include="Monster.h" />
@@ -189,6 +192,7 @@
     <ClInclude Include="SaveLoad.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="SkillInterface.h" />
+    <ClInclude Include="SpecialAttack.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

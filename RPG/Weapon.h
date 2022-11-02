@@ -1,13 +1,14 @@
 #pragma once
 #include "NameTrait.h"
 #include <iostream>
+#include "Id.h"
 using namespace std;
 
-class Weapon : public NameTrait {
+class Weapon : public NameTrait, public Id {
 	int damage = 0;
 	int price = 0;
 public:
-	Weapon(string name, int damage, int price) :NameTrait(name) {
+	Weapon(string name, int damage, int price, int id) :NameTrait(name), Id(id) {
 		this->damage = damage;
 		this->price = price; 
 	}

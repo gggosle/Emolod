@@ -12,7 +12,7 @@
 #include "NameHelper.h"
 #include "Engine.h"
 #include "Event.h"
-#include <fstream>
+//#include <fstream>
 #include <conio.h>
 
 
@@ -20,66 +20,34 @@
 using namespace std;
 
 
-//int addPotion(Player* player) {
-//	vector <PotionInterface*> inventory;
-//
-//	for (int i = 0; i < 10; i++) {
-//		PotionInterface* pi = NULL;
-//		int c = rand() % 5;
-//
-//		if (c == 0) {
-//			pi = new HpPotion();
-//		}
-//		else if (c == 1) {
-//			pi = new pPotion();
-//		}
-//		else if(c == 2) {
-//			pi = new expPotion();
-//		}
-//		else if (c == 3) {
-//			pi = new ePotion();
-//		}
-//		else {
-//			pi = new aPotion();
-//		}
-//
-//		inventory.push_back(pi);
-//	}
-//
-//
-//	for (int i = 0; i < inventory.size(); i++) {
-//		inventory[i]->drink(player);
-//	}
-//
-//	return 1;
-//
-//};
 
 
 int main() {
 	
 	srand(time(NULL));
 	Player* player = NULL;
+	NameHelper* nH = new NameHelper();
+	
 	Engine* engine = new Engine(new FunctionHelper(), new NameHelper());
-	SaveLoad* saveload = new SaveLoad();
+	/*SaveLoad* saveload = new SaveLoad();
 	cout << "Continue?(Press 'c')" << endl;
 	
 	int key = _getch();
 	if (key == 99) {
 		player = saveload->load();
-	}
-	else {
+	}*/
+	
 		player = engine->playerGeneration();
-		Weapon* fists = new Weapon("bare fists", 4, 0);
+		Weapon* fists = new Weapon("bare fists", 4, 0, 0);
 		player->setWeapon(fists);
-		Shield* adrenaline = new Shield("adrenaline", 4, 0);
+		Shield* adrenaline = new Shield("adrenaline", 4, 0, 0);
 		player->setShield(adrenaline);
 
-	}
+	
 	cout << endl;
 	player->stats();
 	cout << endl;
-	cout << "To save your character's progress input 's'" << endl;
+	/*cout << "To save your character's progress input 's'" << endl;*/
 	cout << "To see your stats input 't'" << endl;
 
 
@@ -111,11 +79,7 @@ int main() {
 			cout << endl;
 			event->potionShop();
 		}
-		
-
-
 
 	}
-	/*saveload->save(player);*/
 
 }

@@ -32,7 +32,10 @@ public:
 		this->player = player;
 		this->engine = engine;
 	}
-	void potionShop() {
+	int potionShop() {
+		if (this->player->getCash() < this->engine->aPotionGeneration()->getPrice()) {
+			return 0;
+		}
 		if (this->player->getCash() >= 60) {
 			int c = 0;
 			cout << "You look in your wallet and see " << this->player->getCash() << " grivnas" << endl;
@@ -63,7 +66,7 @@ public:
 			cout << "Input number of item you chose or other if you want to leave: " << endl;
 			cin >> c;
 			for (int i = 0; i < 5; i++) {
-				if (c == i-1) {
+				if (c == i+1) {
 					if (this->player->getCash() >= inventory[i]->getPrice()) {
 						inventory[i]->drink(player);
 					}
@@ -76,7 +79,11 @@ public:
 
 		}
 	}
-	void shop() {
+	int shop() {
+		if (this->player->getCash() < this->engine->weaponGeneration()->getPrice()) {
+
+			return 0;
+		}
 			cout << "You look in your wallet and see " << this->player->getCash() << " grivnas" << endl;
 			shiel.clear();
 			weap.clear();

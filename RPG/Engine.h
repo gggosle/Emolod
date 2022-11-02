@@ -2,7 +2,7 @@
 #include "Monster.h"
 #include "Player.h"
 #include "NameHelper.h"
-#include "SaveLoad.h"
+//#include "SaveLoad.h"
 //#include "Event.h"
 
 #include <ctime>
@@ -29,7 +29,7 @@ private:
 	Player* player = NULL;
 	FunctionHelper* fH = NULL;
 	NameHelper* nH = NULL;
-	SaveLoad* saveL = NULL;
+	/*SaveLoad* saveL = NULL;*/
 	SkillInterface* skill = NULL;
 	MSkillInterface* mskill = NULL;
 	bool defenseChance() {
@@ -48,27 +48,31 @@ private:
 		}
 	}
 	bool criticalChance() {
-		int percentage = 4;
-		for (int i = 0; i < this->player->getLevel(); i++) {
-			percentage += 4;
-		}
-		int criticalChance = this->player->getAgility() * 100 / percentage;
+		int percentage = 6;
+		percentage += 5 * (this->player->getLevel()-1);
+		
+		int criticalChance = this->player->getAgility() * 10 / percentage;
 		if (criticalChance != 0) {
 
-			if (1 + rand() % (10 / criticalChance) == 1 + rand() % (10 / criticalChance)) {
+			if (1 + (rand() % (10 / criticalChance)) == 1 + (rand() % (10 / criticalChance))) {
 				return 1;
 			}
 		}
+		return 0;
 	}
-	int monsterTurn(bool miss) {
+	int monsterTurn(int miss) {
 		int gap = 0;
 		int f = 0;
 
-		bool mb = 0;
+		int mb = 0;
 		int chance = rand() % 3;
 		if (miss == 1) {
 			cout << this->player->getName() << "'s block" << endl;
 			return 0;
+		}
+		else if(miss == 2) {
+			cout << this->player->getName() << "'s block" << endl;
+			return 2;
 		}
 		if (monsterDefenseChance() == 1) {
 			mb = 1;
@@ -100,26 +104,34 @@ private:
 
 		return mb;
 	}
-	int playerTurn(bool miss) {
+	int playerTurn(int miss) {
 		int f = 0;
 		char action = 0;
 		int gap = 0;
 		bool cc = 0;
 		bool dc = 0;
-		bool pc = 0;
+		int pc = 0;
+		bool kc = 0;
 
 		if (miss == 1) {
 			cout << this->monster->getName() << "'s block" << endl;
 			return 0;
 		}
+		else if (miss == 2) {
+			cout << "To get critical attack, input 'c'" << endl;
+			cc = 1;
+		}
 		cout << "To attack input 'a'" << endl;
-
-		if (criticalChance() == true) {
-			cout << "To get critical attack input 'c'" << endl;
+		if (criticalChance() == true && this->monster->getId() == this->player->getWeapon()->getId()) {
+			cout << "To get double attack, input 'k'" << endl;
+			kc = 1;
+		}
+		if (criticalChance() == true && miss != 2) {
+			cout << "To get critical attack, input 'c'" << endl;
 			cc = 1;
 		}
 		if (defenseChance() == true) {
-			cout << "To get shield input 'd'" << endl;
+			cout << "To get shield, input 'd'" << endl;
 			dc = 1;
 		}
 		if (defenseChance() == true) {
@@ -136,6 +148,12 @@ private:
 			gap = this->skill->use(this->player);
 			f = this->monster->getHealth() - gap;
 		}
+		else if (kc == 1 && action == 'k') {
+			this->skill = new CriticalAttack();
+			gap = this->skill->use(this->player);
+			f = this->monster->getHealth() - gap;
+			pc = 2;
+		}
 		else if (dc == 1 && action == 'd') {
 			this->skill = new Block();
 			this->player->setHealth(this->player->getHealth() + this->skill->use(this->player));
@@ -143,7 +161,7 @@ private:
 			cout << "Your health++: " << this->player->getHealth() << endl;
 		}
 		else {
-			cout << "You were too kind to beat this creature, so you left it be" << endl;
+			cout << "missed hit" << endl;
 			return 0;
 		}
 		if (f < this->monster->getHealth()) {
@@ -157,8 +175,8 @@ private:
 	void win() {
 		if (this->monster->getName() == "Yeti") {
 			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
-			cout << " “Regulations Governing Mountain Climbing Expeditions in Nepal — Relating to Yeti.:”" << endl;
-			cout << "2. Hunters can photograph or catch a Yeti but not shoot or kill it — unless in self-defense." << endl;
+			cout << " 'Regulations Governing Mountain Climbing Expeditions in Nepal - Relating to Yeti.':" << endl;
+			cout << "2. Hunters can photograph or catch a Yeti but not shoot or kill it - unless in self-defense." << endl;
 			cout << "Penalty: 500 griven" << endl;
 			this->player->setCash(this->player->getCash() - 500);
 		}
@@ -181,21 +199,22 @@ public:
 	Shield* shieldGeneration() {
 		int defense = this->fH->randomRes(4, 20);
 		int price = defense * 200;
-
-		return new Shield(this->nH->getShieldName(), defense, price);
+		string name = this->nH->getShieldName();
+		return new Shield(name, defense, price, nH->getShieldId(name));
 	}
 
 	Weapon* weaponGeneration() {
 
 		int damage = this->fH->randomRes(4, 20);
 		int price = damage * 200;
+		string name = this->nH->getWeaponName();
 
-		return new Weapon(this->nH->getWeaponName(), damage, price);
+		return new Weapon(name, damage, price, this->nH->getWeaponId(name));
 	}
 
 
 	Player* playerGeneration() {
-		int power = 0, endurance = 0, agility = 0;
+		int power = 1, endurance = 1, agility = 1;
 		int choice = 0;
 		string name = "";
 
@@ -230,12 +249,13 @@ public:
 		health = this->fH->getCharacteristic(health, level - 1, 10);
 		energy = this->fH->getCharacteristic(energy, level, 10);
 		int playerExperience = this->fH->getCharacteristic(0, level, 10);
+		string name = this->nH->getMonsterName();
 		Monster* monster = new Monster(
-			this->nH->getMonsterName(),
+			name,
 			health,
 			energy,
 			playerExperience,
-			level);
+			level, this->nH->getMonsterId(name));
 
 		return monster;
 	}
@@ -271,13 +291,16 @@ public:
 		return health;
 	}
 	int fight(Player* player, Monster* monster) {
-		this->saveL = new SaveLoad();
+		/*this->saveL = new SaveLoad();*/
 		int f = 0;
 		char choice;
 		this->player = player;
 		this->monster = monster;
 		cout << endl << "Your opponnent's stats: "<<endl << this->monster->getName() << endl << "Level: " << this->monster->getLevel() << endl << "Health: " << this->monster->getHealth() << endl;
 		cout << "Experience: " << this->monster->getPlayerExperience() << endl << "Cash: " << this->monster->getCash() << endl;
+		if (this->monster->getId() == this->player->getWeapon()->getId() || this->monster->getId() == this->player->getShield()->getId()) {
+			cout << "You've got advantages over this monster " << endl;
+		}
 		cout << "You wanna fight?(y/n)";
 		cin >> choice;
 
@@ -285,20 +308,20 @@ public:
 			this->player->stats();
 			return 0;
 		}
-		else if (choice == 's') {
+		/*else if (choice == 's') {
 			this->saveL->save(player);
 			cout << "You saved your progress" << endl;
 			return 0;
-		}
+		}*/
 		else if (choice != 'y') {
 			return 0;
 		}
-		this->player->setEnergy(this->player->getEnergy() - this->monster->getLevel() * 2);
+		/*this->player->setEnergy(this->player->getEnergy() - this->monster->getLevel() * 2);*/
 
 
 		int c = rand() % 2;
-		bool pd = 0;
-		bool md = 0;
+		int pd = 0;
+		int md = 0;
 		if (c == 1) {
 			cout << "Your turn!" << endl;
 			do {

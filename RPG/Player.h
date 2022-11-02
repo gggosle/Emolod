@@ -82,8 +82,8 @@ public:
 	int levelUp() {
 		this->level += 1;
 		this->agility += rand() % 5;
-		this->endurance = rand() % 5;
-		this->power = rand() % 5;
+		this->endurance += rand() % 5;
+		this->power += rand() % 5;
 		this->health = this->healthMax;
 		this->energy = this->energyMax;
 		this->c += 4;
@@ -161,7 +161,7 @@ public:
 		return experience;
 	}
 	void setCriticalDamage(int damage) {
-		playerDamage = (((damage + this->power) - 3) * this->fH->getCharacteristic(health, level, 10));
+		playerDamage =  this->fH->getCharacteristic(health, level-1, 10);
 		/*int percentage = 4;
 		for (int i = 0; i < level; i++) {
 			percentage += 4;
@@ -175,6 +175,7 @@ public:
 			}
 		}*/
 	}
+	
 
 	void setDamage(int damage) {
 		playerDamage = (((damage + this->power) - 3) * this->fH->getCharacteristic(health, level, 10)) / this->c;	

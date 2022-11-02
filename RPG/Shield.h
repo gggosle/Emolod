@@ -1,15 +1,16 @@
 #pragma once
 #include <iostream>
 #include "NameTrait.h"
+#include "Id.h"
 using namespace std;
 
 
-class Shield : public NameTrait {
+class Shield : public NameTrait, public Id {
 private:
 	int defense = 0;
 	int price = 0;
 public:
-	Shield(string name, int shield, int price) : NameTrait(name) {
+	Shield(string name, int shield, int price, int id) : NameTrait(name), Id(id) {
 		this->defense = shield;
 		this->price = price;
 	}
