@@ -1,24 +1,5 @@
-﻿  APotion.cpp
-  Attack.cpp
-  Block.cpp
-  Characteristics.cpp
-  CriticalAttack.cpp
-  EPotion.cpp
-  Engine.cpp
-  Event.cpp
-  ExpPotion.cpp
-  HpPotion.cpp
-  MAttack.cpp
-  MBlock.cpp
-  MSkillInterface.cpp
-  Monster.cpp
-  PPotion.cpp
-  Player.cpp
-  PotionInterface.cpp
-  RPG.cpp
+﻿  RPG.cpp
 C:\Users\gakho\Desktop\New folder\Emolod\RPG\RPG.cpp(27,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  SkillInterface.cpp
-  Generating Code...
 C:\Users\gakho\Desktop\New folder\Emolod\RPG\Event.h(130): warning C4715: 'Event::shop': not all control paths return a value
 C:\Users\gakho\Desktop\New folder\Emolod\RPG\Event.h(81): warning C4715: 'Event::potionShop': not all control paths return a value
 C:\Users\gakho\Desktop\New folder\Emolod\RPG\Engine.h(421): warning C4715: 'Engine::fight': not all control paths return a value

@@ -48,7 +48,8 @@ int main() {
 	player->stats();
 	cout << endl;
 	/*cout << "To save your character's progress input 's'" << endl;*/
-	cout << "To see your stats input 't'" << endl;
+	cout << "To see your stats, input 't'" << endl;
+	cout << "To get energy, input 'e'" << endl;
 
 
 	Event* event = new Event(player, engine);
