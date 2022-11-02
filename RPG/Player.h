@@ -87,6 +87,7 @@ public:
 		this->health = this->healthMax;
 		this->energy = this->energyMax;
 		this->c += 4;
+		this->experience = 0;
 
 		cout <<endl<< "Congrats! You've reached new level!" << endl;
 		cout << "Your power now: " << getPower() << endl;

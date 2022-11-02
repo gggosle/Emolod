@@ -112,7 +112,7 @@ private:
 		bool dc = 0;
 		int pc = 0;
 		bool kc = 0;
-
+		bool rc = 0;
 		if (miss == 1) {
 			cout << this->monster->getName() << "'s block" << endl;
 			return 0;
@@ -125,6 +125,10 @@ private:
 		if (criticalChance() == true && this->monster->getId() == this->player->getWeapon()->getId()) {
 			cout << "To get double attack, input 'k'" << endl;
 			kc = 1;
+		}
+		if (defenseChance() == true && this->monster->getId() == this->player->getShield()->getId()) {
+			cout << "To get health regeneration + attack, input 'r'" << endl;
+			rc = 1;
 		}
 		if (criticalChance() == true && miss != 2) {
 			cout << "To get critical attack, input 'c'" << endl;
@@ -139,6 +143,12 @@ private:
 		}
 		cin >> action;
 		if (action == 'a') {
+			this->skill = new Attack();
+			gap = this->skill->use(this->player);
+			f = this->monster->getHealth() - gap;
+		}
+		else if (rc == 1 && action == 'r') {
+			this->player->healthRegeneration();
 			this->skill = new Attack();
 			gap = this->skill->use(this->player);
 			f = this->monster->getHealth() - gap;
