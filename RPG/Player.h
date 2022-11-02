@@ -68,7 +68,7 @@ public:
 	}
 
 	void stats() {
-		cout<<endl << "Cash: " << this->cash<< endl;
+		(this->cash >= 0) ? cout << endl << "Cash: " << this->cash << endl : cout << endl<< "You're in debt of " << this->cash*(-1) << " griven" << endl;
 		cout << "Power: " << this->power << endl;
 		cout << "Agility: " << this->agility << endl;
 		cout << "Endurance: " << this->endurance << endl;
@@ -76,7 +76,8 @@ public:
 		cout << "Level: " << this->level << endl;
 		cout << "Health: " << this->healthMax << endl;
 		cout << "Your weapon: " << this->getWeapon()->getName() << " with damage value " << this->getWeapon()->getDamage() << endl;
-		cout << "Your shield: " << this->getShield()->getName() << " with defense value " << this->getShield()->getDefense() << endl << endl;
+		cout << "Your shield: " << this->getShield()->getName() << " with defense value " << this->getShield()->getDefense() << endl;
+		cout << "Energy: " << this->energy << endl;
 
 	}
 	int levelUp() {
@@ -85,7 +86,6 @@ public:
 		this->endurance += rand() % 5;
 		this->power += rand() % 5;
 		this->health = this->healthMax;
-		this->energy = this->energyMax;
 		this->c += 4;
 		this->experience = 0;
 
@@ -115,7 +115,9 @@ public:
 	int healthRegeneration() {
 		return this->health = this->healthMax;
 	}
-
+	int energyRegeneration() {
+		return this->energy = this->energyMax;
+	}
 	void setShield(Shield* shield) {
 		this->shield = shield;
 	}

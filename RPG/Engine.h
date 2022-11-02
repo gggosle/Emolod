@@ -60,6 +60,8 @@ private:
 		}
 		return 0;
 	}
+	
+
 	int monsterTurn(int miss) {
 		int gap = 0;
 		int f = 0;
@@ -104,6 +106,7 @@ private:
 
 		return mb;
 	}
+	
 	int playerTurn(int miss) {
 		int f = 0;
 		char action = 0;
@@ -183,12 +186,31 @@ private:
 	}
 
 	void win() {
-		if (this->monster->getName() == "Yeti") {
-			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
-			cout << " 'Regulations Governing Mountain Climbing Expeditions in Nepal - Relating to Yeti.':" << endl;
-			cout << "2. Hunters can photograph or catch a Yeti but not shoot or kill it - unless in self-defense." << endl;
-			cout << "Penalty: 500 griven" << endl;
-			this->player->setCash(this->player->getCash() - 500);
+		if (rand() % 2 == 0) {
+			char choice = 0;
+			cout << "You've run into the guard. Run or pay 200 griven fine for killing an extinct creature.('r'?'p')" << endl;
+			cin >> choice;
+			if (choice == 'p') {
+				this->player->setCash(this->player->getCash() - 200);
+			}
+			else if(choice == 'r') {
+				this->player->setEnergy(this->player->getEnergy() - rand() % 15 + 1);
+				if (this->player->getEnergy() < 0) { 
+					this->player->setEnergy(0);
+					cout << "Unfortunately, you were not fast enough, -500 griven" << endl;
+					this->player->setCash(this->player->getCash() - 500);
+				}
+				else {
+					cout << "You've escaped succesfully!" << endl;
+					this->player->setCash(this->player->getCash() + this->monster->getCash());
+					cout << "Your experience: +" << monster->getPlayerExperience() << endl;
+
+					this->player->setExperience(this->monster->getPlayerExperience());
+					cout << "Your cash: +" << monster->getCash() << endl;
+
+				}
+			}
+
 		}
 		else {
 			this->player->setCash(this->player->getCash() + this->monster->getCash());
@@ -196,7 +218,17 @@ private:
 
 			this->player->setExperience(this->monster->getPlayerExperience());
 			cout << "Your cash: +" << monster->getCash() << endl;
+
 		}
+		/*if (this->monster->getName() == "Yeti") {
+			cout << "Your experience: +" << monster->getPlayerExperience() << endl;
+			cout << " 'Regulations Governing Mountain Climbing Expeditions in Nepal - Relating to Yeti.':" << endl;
+			cout << "2. Hunters can photograph or catch a Yeti but not shoot or kill it - unless in self-defense." << endl;
+			cout << "Penalty: 500 griven" << endl;
+			this->player->setCash(this->player->getCash() - 500);
+		}*/
+		
+			
 	}
 public:
 	Engine(FunctionHelper* fH, NameHelper* nH)
@@ -253,8 +285,8 @@ public:
 
 		int health = 25;
 		int energy = 25;
-		int cash = 10;
-		cash = this->fH->getCharacteristic(cash, level, 5);
+		/*int cash = 10;
+		cash = this->fH->getCharacteristic(cash, level, 5);*/
 
 		health = this->fH->getCharacteristic(health, level - 1, 10);
 		energy = this->fH->getCharacteristic(energy, level, 10);
@@ -318,6 +350,17 @@ public:
 			this->player->stats();
 			return 0;
 		}
+		if (choice == 'e') {
+			char in = 0;
+			
+			cout << "20 energy points - 400 griven('y' / 'n') " << endl;
+			cin >> in;
+			if (in == 'y') {
+				this->player->energyRegeneration();
+				this->player->setCash(this->player->getCash() - 400);
+			}
+			return 0;
+		}
 		/*else if (choice == 's') {
 			this->saveL->save(player);
 			cout << "You saved your progress" << endl;
@@ -326,8 +369,15 @@ public:
 		else if (choice != 'y') {
 			return 0;
 		}
-		/*this->player->setEnergy(this->player->getEnergy() - this->monster->getLevel() * 2);*/
+		this->player->setEnergy(this->player->getEnergy() - this->monster->getLevel() * 2);
+		if (this->player->getEnergy() < 0) {
+			this->player->setEnergy(0);
 
+			int robbery = 100 * this->monster->getLevel() + rand() % 200;
+				cout << "You ran out of energy and fell. " << this->monster->getName() << " robbed you of " << robbery << " griven" << endl;
+				this->player->setCash(this->player->getCash() - robbery);
+			return 0;
+		}
 
 		int c = rand() % 2;
 		int pd = 0;

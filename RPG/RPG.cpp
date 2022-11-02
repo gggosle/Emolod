@@ -69,11 +69,12 @@ int main() {
 		}
 		else if (pos > 45 && pos <= 70) {
 			cout << endl;
-			player->setEnergy(1 + rand() % 5);
+			player->setEnergy(player->getEnergy()+1);
 
 			cout << "Have some rest" << endl;
 			player->setHealthMax(player->getHealthMax() + 1);
 			cout << "Health: " << player->getHealthMax() << endl;
+			cout << "Energy: " << player->getEnergy();
 		}
 		else if (pos > 70 && pos <= 75) {
 			cout << endl;

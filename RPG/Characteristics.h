@@ -29,7 +29,7 @@ public:
 		this->health = health;
 	}
 	int getHealth() {
-		return health;
+		return this->health;
 	}
 	void setHealthMax(int healthMax) {
 		this->healthMax = healthMax;
@@ -38,20 +38,22 @@ public:
 		return this->healthMax;
 	}
 	void setEnergy(int energy) {
-		if (energy > this->energyMax) {
-			this->energy = this->energyMax;
-		}
-		else {
 			this->energy = energy;
-		}
 	}
+	/*int getEnergyMax() {
+		return this->energy;
+	}
+	void setHealthMax(int healhMax) {
+		this->healthMax = healthMax;
+	}*/
 	int getEnergy() {
-		return energy;
-	}void setName(int name) {
+		return this->energy;
+	}
+	void setName(int name) {
 		this->name = name;
 	}
 	string getName() {
-		return name;
+		return this->name;
 	}
 	void setLevel(int level) {
 		this->level = level;
